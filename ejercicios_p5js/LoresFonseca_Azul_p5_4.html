@@ -1,0 +1,32 @@
+<!doctype html> <!-- Indica que es un documento HTML -->
+<html>
+  <head>
+    <meta charset="utf-8" /> 
+    <title>Azul</title> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Prueba</h1>
+
+<script>
+function setup() {
+  createCanvas(800, 500);   // Cambia estos números y verás que el texto NO se recoloca solo
+  background(245,176,32);
+  noStroke();
+
+  // Título centrado "a mano"
+  textSize(28);
+  textAlign(CENTER, TOP);
+  fill(68,68,194);
+  text("Disney", 320, 16);
+
+  // Subtítulo un poco más abajo
+  textSize(16);
+  fill(227,64,16);
+  text("El Rey León", 320, 52);
+
+}
+</script>
+</body>
+</html>
