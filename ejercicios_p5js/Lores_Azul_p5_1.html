@@ -1,0 +1,45 @@
+<!doctype html> <!-- Indica que es un documento HTML -->
+<html>
+  <head>
+    <meta charset="utf-8" /> 
+    <title>Iniciales</title> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  </head>
+
+  <body>
+    <h1>CUADRADO</h1>
+
+
+    <script>
+      // La función setup() se ejecuta UNA sola vez al iniciar el programa
+function setup() {
+  createCanvas(400, 400); // crea un lienzo de 400x400 píxeles
+}
+
+// La función draw() se ejecuta MUCHAS veces por segundo (bucle automático)
+function draw() {
+  background(220);        // pinta el fondo blanco en cada frame
+  // aquí irán las órdenes para dibujar tus figuras
+line(100,200,230,200);
+stroke(10,100,220,150);
+strokeWeight(14);
+
+
+line(100,200,100,70);
+stroke(60,200,10);
+strokeWeight(5);
+
+line(100,70,230,70);
+stroke(40,20,98,180);
+strokeWeight(7);
+
+line(230,70,230,200);
+stroke(50,86,180);
+strokeWeight(2);
+
+
+}
+
+    </script>
+  </body>
+</html>
