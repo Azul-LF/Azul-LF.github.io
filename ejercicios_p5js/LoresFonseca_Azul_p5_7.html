@@ -47,15 +47,15 @@
 
     // Posiciones iniciales del glovo
 
-    xG = heigth * 0.5;   yG = width * 0.5;
+    xG = width * 0.5;   yG = height * 0.5;
 
     // Tamaños relativos del glovo
 
-    Sg = 0.08 * heigth;  cuerda = 1.2 * Sg;
+    Sg = 0.08 * height;  cuerda = 1.2 * Sg;
 
     // Velocidad del glovo
 
-    vyG = heigth / 600;
+    vyG = height / 600;
     
   }
 
@@ -89,7 +89,7 @@
     fill(255, 80, 80);
     circle(xG, yG, Sg);
     stroke(60);
-    line(xG, yG + 0.5Sg, xG, yG + 0.5Sg + cuerda);
+    line(xG, yG + 0.5 * Sg, xG, yG + 0.5 * Sg + cuerda);
     
     // Movimiento de astros y de sus cielos (cada uno con su estado)
     x_s  = x_s  + v_s;
