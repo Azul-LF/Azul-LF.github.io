@@ -103,6 +103,13 @@
     circle(xG, yG, Sg);
     stroke(60);
     line(xG, yG + 0.5 * Sg, xG, yG + 0.5 * Sg + cuerda);
+    
+    // Crecimiento del árbol
+    
+    S = S + 0.02; // La copa del árbol crece lentamente
+    troncoW = 0.3 * S;
+    troncoH = 1.2 * S;
+    copaD = 1.1 * S;
 
     // Árbol
 
@@ -118,10 +125,10 @@
     x_l  = x_l  + v_l;
     x_cl = x_cl + v_l;   // el cielo de la luna se desplaza con la luna
 
+    // Movimiento del glovo
     yG = yG - vyG; // el glovo asciende lentamente
 
-    S = 0.1 * height; // La copa del árbol crece lentamente
-    
+  
   }
   </script>
   </body>
