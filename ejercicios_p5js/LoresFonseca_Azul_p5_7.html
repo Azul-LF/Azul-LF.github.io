@@ -18,6 +18,10 @@
   let x_cl;           // x del rectángulo "cielo de la luna"
   let adelanto_l;     // cuánto va por delante el cielo de la luna
 
+  // Glovo que asciende lentamente
+    let xG, yG, vyG;
+    let Sg, cuerda;
+
   function setup() {
     createCanvas(600, 600);
 
@@ -40,6 +44,19 @@
     // Posiciones iniciales de los cielos (ligeramente por delante)
     x_cs = x_s + adelanto_s;
     x_cl = x_l + adelanto_l;
+
+    // Posiciones iniciales del glovo
+
+    xG = heigth * 0.5;   yG = width * 0.5;
+
+    // Tamaños relativos del glovo
+
+    Sg = 0.08 * heigth;  cuerda = 1.2 * Sg;
+
+    // Velocidad del glovo
+
+    vyG = heigth / 600;
+    
   }
 
   function draw() {
@@ -67,12 +84,21 @@
     fill(255);
     circle(x_l, y_l, d_l);
 
+    // Glovo
+
+    fill(255, 80, 80);
+    circle(xG, yG, Sg);
+    stroke(60);
+    line(xG, yG + 0.5Sg, xG, yG + 0.5Sg + cuerda);
+    
     // Movimiento de astros y de sus cielos (cada uno con su estado)
     x_s  = x_s  + v_s;
     x_cs = x_cs + v_s;   // el cielo del sol se desplaza con el sol
 
     x_l  = x_l  + v_l;
     x_cl = x_cl + v_l;   // el cielo de la luna se desplaza con la luna
+
+    yG = yG - vyG; // el glovo asciende lentamente
   }
   </script>
   </body>
