@@ -105,8 +105,8 @@
     line(xG, yG + 0.5 * Sg, xG, yG + 0.5 * Sg + cuerda);
     
     // Crecimiento del árbol
-    
-    copaD = 1.1 * S; // La copa del árbol crece lentamente
+    S = S + 0.05;
+    copaD = 1.1 * S; 
     
 
     // Árbol
@@ -126,8 +126,7 @@
     // Movimiento del glovo
     yG = yG - vyG; // el glovo asciende lentamente
 
-    // Crecimiento del árbol
-    copaD = 1.1 * S; // La copa del árbol crece lentamente
+    
   
   }
   </script>
