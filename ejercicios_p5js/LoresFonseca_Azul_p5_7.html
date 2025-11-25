@@ -22,6 +22,10 @@
     let xG, yG, vyG;
     let Sg, cuerda;
 
+ // Copa (Árbol) con crecimiento muy pequeño
+
+    let S, troncoW, troncoH, copaD;
+
   function setup() {
     createCanvas(600, 600);
 
@@ -56,6 +60,15 @@
     // Velocidad del glovo
 
     vyG = height / 600;
+
+    // Estado de la copa del árbol
+
+    S = 0,1 * height;
+
+    // Posiciones del tronco y de la copa del árbol
+
+    troncoW = 0.3 * S;  troncoH = 1.2 * S; 
+    copaD = 1.1 * S;
     
   }
 
@@ -90,7 +103,14 @@
     circle(xG, yG, Sg);
     stroke(60);
     line(xG, yG + 0.5 * Sg, xG, yG + 0.5 * Sg + cuerda);
-    
+
+    // Árbol
+
+    fill(120, 80, 40); 
+    rect(0.15 * width - 0.5 * troncoW, 0.8 * height - troncoH, troncoW, troncoH); 
+    fill(40, 140, 60); 
+    circle(0.15 * width, 0.8 * height - troncoH - 0.3 * S, copaD);
+
     // Movimiento de astros y de sus cielos (cada uno con su estado)
     x_s  = x_s  + v_s;
     x_cs = x_cs + v_s;   // el cielo del sol se desplaza con el sol
