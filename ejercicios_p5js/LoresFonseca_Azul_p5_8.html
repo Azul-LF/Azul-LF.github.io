@@ -1,0 +1,337 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SISTEMA SOLAR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  </head>
+  <body>
+  <script>
+  // Estado del sol 
+    let Xs, Ys, Ds, Rs;
+  
+  // Estado de mercurio
+    let XOmer, YOmer, DOmer, ROmer;          // Órbita de mercurio
+    let Xmer, Ymer, Dmer, Rmer, Amer, Vmer;
+
+  // Estado de venus
+    let XOv, YOv, DOv, ROv;      // Órbita de venus
+    let Xv, Yv, Dv, Rv, Av, Vv;
+
+  // Estado de la tierra
+    let XOt, YOt, DOt, ROt;     // Órbita de la tierra
+    let Xt, Yt, Dt, Rt, At, Vt;
+
+  // Estado de marte
+     let XOmar, YOmar, DOmar, ROmar;         // Órbita de marte
+     let Xmar, Ymar, Dmar, Rmar, Amar, Vmar;
+
+  // Estado de júpiter
+     let XOj, YOj, DOj, ROj;     // Órbita de júpiter
+     let Xj, Yj, Dj, Rj, Aj, Vj;
+	 
+  // Estado de Saturno
+     let XOsat, YOsat, DOsat, ROsat;     // Órbita de Saturno
+	 let Xsat, Ysat, Dsat, Rsat, Asat, Vsat;
+     let XAsat, YAsat, DAsat, RAsat, AAsat, VAsat;  // Anillos de saturno
+  
+  // Estado de urano
+     let XOu, YOu, DOu, ROu;     // Órbita de urano
+	 let Xu, Yu, Du, Ru, Au, Vu;
+
+  // Estado de neptuno
+     let XOn, YOn, DOn, ROn;    // Órbita de neptuno
+     let Xn, Yn, Dn, Rn, An, Vn;
+
+ function setup () {
+  
+  createCanvas (1000,1000);
+  
+  // Posición del sol
+     Xs = width / 2;  Ys = height / 2;
+
+  // Tamaño relativo del sol
+     Ds = 0.10 * min(width, height);  Rs = Ds / 2;
+
+  // Posición de la órbita de mercurio
+     XOmer = Xs;  YOmer = Ys;  DOmer = width * 0.25;  ROmer = DOmer / 2;
+
+  // Posición inicial de mercurio
+     Xmer = ROmer;  Ymer = height * 0.6;
+
+  // Tamaño relativo de mercurio               
+     Dmer = Ds * 0.09; Rmer = Dmer / 2;
+
+  // Velocidad y Ángulo iniciales de mercurio
+     Amer = 0;  Vmer = 0.030;
+
+  // Posición de la órbita de venus
+     XOv = Xs;  YOv = Ys;  DOv = width * 0.35;  ROv = DOv / 2;
+
+  // Posición inicial de venus
+     Xv = ROv; Yv = height * 0.6;
+
+  // Tamaño relativo de venus
+     Dv = Ds * 0.184; Rv = Dv / 2;
+
+  // Velocidad y Ángulo iniciales de venus
+     Av = PI / 4;  Vv = 0.012;
+
+  // Posición de la órbita de la tierra
+     XOt = Xs;  YOt = Ys;  DOt = width * 0.45;  ROt = DOt / 2;
+
+  // Posición inicial de la tierra
+     Xt = ROt;  Yt = height * 0.6;
+
+  // Tamaño relativo de la tierra
+     Dt = Ds * 0.2;  Rt = Dt / 2;
+
+  // Velocidad y Ángulo iniciales de la tierra
+     At = PI / 2;  Vt = 0.010;
+
+  // Posición de la órbita de marte
+     XOmar = Xs; YOmar = Ys; DOmar = width * 0.55;  ROmar = DOmar /2;
+
+  // Posición inicial de marte
+     Xmar = ROmar;  Ymar = height * 0.6;
+
+  // Tamaño relativo de marte
+     Dmar = Ds * 0.1; Rmar = Dmar /2;
+
+  // Velocidad y Ángulo iniciales de marte
+     Amar = 3 * PI / 4;  Vmar = 0.008;
+
+  // Posición de la órbita de júpiter
+     XOj = Xs;  YOj = Ys; DOj = width * 0.65;  ROj = DOj / 2;
+
+  // Posición inicial de júpiter
+     Xj = ROj; Yj = height * 0.6;
+
+  // Tamaño relativo de júpiter
+     Dj = Ds * 0.5;  Rj = Dj / 2;
+
+  // Velocidad y Ángulo iniciales de júpiter
+     Aj = PI;  Vj = 0.004;
+  
+  // Posición de la órbita de Saturno
+     XOsat = Xs;  YOsat = Ys; DOsat = width * 0.75;  ROsat = DOsat / 2;
+  
+  // Posición inicial de Saturno
+     Xsat = ROsat;  Ysat = height * 0.6;
+  
+  // Tamaño relativo de Saturno
+     Dsat = Ds * 0.4;  Rsat = Dsat / 2;
+
+  // Anillos de Saturno
+     XAsat = ROsat;  YAsat = height * 0.6;  DAsat = Ds * 0.5; RAsat = DAsat / 2;
+
+     AAsat = 5 * PI / 4;  VAsat = 0.003;
+
+  // Velocidad y Ángulo iniciales de Saturno
+     Asat = 5 * PI / 4;  Vsat = 0.003;
+
+  // Posición de la órbita de urano
+     XOu = Xs;  YOu = Ys;  DOu = width * 0.85;  ROu = DOu / 2;
+ 
+  // Posición inicial de urano
+     Xu = ROu;  Yu = height * 0.6;
+
+  // Tamaño relativo de urano
+     Du = Ds * 0.2; Ru = Du / 2;
+
+  // Velocidad y Ángulo iniciales de urano
+     Au = 3 * PI / 2;  Vu = 0.002; 
+
+  // Posición de la Órbita de neptuno
+     XOn = Xs;  YOn = Ys;  DOn = width * 0.95;  ROn = DOn / 2;
+
+  // Posición inicial de neptuno
+     Xn = XOn;  Yn = height * 0.6;
+
+  // Tamaño relativo de neptuno
+     Dn = Ds * 0.15;  Rn = Dn / 2;
+
+  // Velocidad y Ángulo iniciales de neptuno
+     An = 7 * PI / 4;  Vn = 0.0015;
+     
+}
+
+ function draw () {
+
+  // Espacio
+     background(1,17,59);
+
+  // Sol
+     fill(250,250,5);
+     stroke(250,168,5);
+     strokeWeight(3);
+     circle(Xs,Ys,Ds);
+
+  // Mercurio y su órbita
+     // órbita
+        noFill();
+        stroke(255, 255, 255);      
+        strokeWeight(1);  
+        circle (XOmer,YOmer,DOmer);
+
+     // Mercurio
+        fill(194,137,95);
+        stroke(161,112,77);
+        strokeWeight(1);      
+        circle(Xmer,Ymer,Dmer);
+
+  // Venus y su órbita
+     // órbita
+        noFill();
+        stroke(255);
+        strokeWeight(1);
+        circle(XOv,YOv,DOv);
+
+    // venus
+       fill(214,159,17);
+       stroke(186,138,15);
+       strokeWeight(1);
+       circle(Xv,Yv,Dv);
+
+  // Tierra y su órbita
+    // órbita
+       noFill();
+       stroke(255);
+       strokeWeight(1);
+       circle(XOt,YOt,DOt);
+
+    // tierra
+       fill(43,217,210);
+       stroke(36,166,160);
+       strokeWeight(1);
+       circle(Xt,Yt,Dt);
+
+  // Marte y su órbita
+     //órbita
+       noFill();
+       stroke(255);
+       strokeWeight(1);
+       circle(XOmar,YOmar,DOmar);
+
+    // marte
+       fill(189,57,9);
+       stroke(145,43,7);
+       strokeWeight(1);
+       circle(Xmar,Ymar,Dmar);
+
+  // Júpiter y su órbita 
+     //órbita
+       noFill();
+       stroke(255);
+       strokeWeight(1);
+       circle(XOj,YOj,DOj);
+
+    // júpiter
+       fill(196,138,43);
+       stroke(125,188,29);
+       strokeWeight(1);
+       circle(Xj,Yj,Dj);
+	   
+  // Saturno y su órbita
+     // Órbita
+	   noFill();
+       stroke(255);
+       strokeWeight(1);
+       circle(XOsat,YOsat,DOsat);
+	   
+	// Saturno
+	   fill(201,185,151);
+       stroke(148,138,112);
+       strokeWeight(1);
+       circle(Xsat,Ysat,Dsat);
+
+    // Anillos
+       noFill();
+       stroke(148,138,112);
+       strokeWeight(2.5);
+       circle(Xsat,Ysat,DAsat);
+	   
+  // Urano y su órbita
+     // Órbita
+	   noFill();
+       stroke(255);
+       strokeWeight(1);
+       circle(XOu,YOu,DOu);
+	   
+	// Urano
+	   fill(154,218,237);
+       stroke(119,166,181);
+       strokeWeight(1);
+       circle(Xu,Yu,Du);
+ 
+  // Neptuno y su órbita
+     // Órbita
+	   noFill();
+       stroke(255);
+       strokeWeight(1);
+       circle(XOn,YOn,DOn);
+
+    // Neptuno
+       fill(6,107,186);
+       stroke(4,57,99);
+       strokeWeight(1);
+       circle(Xn,Yn,Dn);
+       
+     
+  // Movimiento de mercurio alrededor del sol
+     Amer = Amer + Vmer;
+     Xmer = Xs + cos(Amer) * ROmer;
+     Ymer = Ys + sin(Amer) * ROmer;
+
+  // Movimiento de venus alrededor del sol
+     Av = Av + Vv;
+     Xv = Xs + cos(Av) * ROv;
+     Yv = Ys + sin(Av) * ROv;
+
+  // Movimiento de la tierra alrededor del sol
+     At = At + Vt;
+     Xt = Xs + cos(At) * ROt;
+     Yt = Ys + sin(At) * ROt;
+
+  // Movimiento de marte alrededor del sol
+     Amar = Amar + Vmar;
+     Xmar = Xs + cos(Amar) * ROmar;
+     Ymar = Ys + sin(Amar) * ROmar;
+
+  // Movimiento de júpiter alrededor del sol
+     Aj = Aj + Vj;
+     Xj = Xs + cos(Aj) * ROj;
+     Yj = Ys + sin(Aj) * ROj;
+	 
+  // Movimiento de Saturno alrededor del sol
+     Asat = Asat + Vsat;
+     Xsat = Xs + cos(Asat) * ROsat;
+     Ysat = Ys + sin(Asat) * ROsat;
+	 
+     AAsat = AAsat + VAsat;
+     XAsat = Xs + cos(AAsat) * RAsat;
+     YAsat = Ys + sin(AAsat) * RAsat;
+
+  // Movimiento de urano alrededor del sol
+     Au = Au + Vu;
+     Xu = Xs + cos(Au) * ROu;
+     Yu = Ys + sin(Au) * ROu;
+
+  // Movimiento de neptuno alrededor del sol
+     An = An + Vn;
+     Xn = Xs + cos(An) * ROn;
+     Yn = Ys + sin(An) * ROn;
+  
+}
+  
+ </script>
+  </body>
+</html>
+
+
+
+
+
+
+
