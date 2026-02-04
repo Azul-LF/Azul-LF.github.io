@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tarea 16 · Impacto y Contador</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  </head>
+
+  <body>
+    <script>
+
+      // Estado del sol
+      let xS, yS, dS, rS, vS;
+
+      // Estado de la luna 
+      let xL, yL, dL, rL, vL;
+
+      // Estado del calendario
+      let dia, mes, año;
+
+      // Estado del personaje 
+      let xP, yP;  // Posición del personaje 
+      let S;       // Tamaño del personaje
+      let vP;      // Velocidad del personaje
+
+          // Salto del personaje 
+             let vY;        // Velocidad del salto
+             let groundY;   // Altura del suelo
+             let jumpV;     // Impulso del salto 
+             let g;         // Gravedad
+
+         // Dibujo del personaje 
+             let rHead, bodyL, armL, legL;
+             let hipY, shoulderY, headY;
+
+      // Disparo
+      let xD, yD;
+      let tD, vD;
+      let disparoActivo;
+
+      // Objetivo
+      let xO, yO, wO, hO, vO;
+
+      // Contador de puntos
+      let puntos;
+
+      function setup() {
+        createCanvas(1000, 600);
+
+        // Sol
+        dS = min(width, height) * 0.2;
+        rS = dS / 2;
+        xS = -rS;
+        yS = height / 4;
+        vS = width / 400;
+
+        // Luna
+        dL = dS * 0.5;
+        rL = dL / 2;
+        xL = -width - rL;
+        yL = height / 3;
+        vL = vS;
+
+        // Calendario
+        dia = 18;
+        mes = 12;
+        año = 2025;
+
+        // Suelo
+        groundY = 0.80 * height;
+
+        // Personaje: tamaño y posición inicial
+        S = 0.12 * min(width, height);
+        xP = 0.25 * width;
+        yP = groundY;        // yP será la posición de los pies
+		
+		// Movimiento horizontal
+        vP = width / 150;
+
+        // Salto (valores sencillos)
+        vY = 0;
+        jumpV = -0.030 * height;
+        g = 0.0016 * height;
+
+        // Dibujo del personaje
+		    
+		  // Tamaños derivados 
+             rHead = 0.20 * S;
+             bodyL = 0.60 * S;
+             armL = 0.45 * S;
+             legL = 0.55 * S;
+
+        // Disparo
+        tD = 0.015 * min(width, height);
+        vD = 0.025 * height;
+        disparoActivo = false;
+
+        // Objetivo
+        wO = 0.08 * width;
+        hO = 0.05 * height;
+        yO = random(0.20 * height, 0.35 * height);
+        xO = -wO;
+        vO = random(width / 300, width / 200);
+
+        // Puntos
+        puntos = 0;
+      }
+
+      // Funciones
+
+      function dibujarSol() {
+	  
+	    // Dibujo del sol
+        noStroke();
+        fill(245, 234, 10);
+        circle(xS, yS, dS);
+      }
+
+      function dibujarLuna() {
+	  
+	    // Dibujo de la luna
+        noStroke();
+        fill(200);
+        circle(xL, yL, dL);
+      }
+
+      function dibujarCalendario() {
+	  
+	    // Dibujo del calendario
+        noStroke();
+        fill(xS <= width + rS ? 0 : 255);
+        textSize(20);
+        text("Fecha: (" + dia + ") (" + mes + ") (" + año + ")", 10, 20);
+      }
+
+      function dibujarPuntos() {
+	  
+	    // Dibujo de los puntos
+        noStroke();
+        fill(255);
+        textSize(20);
+        text("Puntos: " + puntos, 10, 45);
+      }
+
+      function dibujarStickman() {
+	  
+	    // Dibujo del personaje 
+        stroke(255, 40, 0);
+        strokeWeight(0.06 * S);
+        noFill();
+		
+        // Cabeza
+        circle(xP, headY, 2 * rHead);
+		
+		// Tronco
+        line(xP, shoulderY, xP, hipY);
+		
+        // Brazos (una línea horizontal + dos líneas hacia abajo)
+        line(xP - 0.25*S, shoulderY, xP + 0.25*S, shoulderY);
+        line(xP - 0.25*S, shoulderY, xP - 0.25*S, shoulderY + armL);
+        line(xP + 0.25*S, shoulderY, xP + 0.25*S, shoulderY + armL);
+
+        // Piernas
+        line(xP, hipY, xP - 0.18*S, yP);
+        line(xP, hipY, xP + 0.18*S, yP);
+		
+      }
+
+      function dibujarDisparo() {
+	  
+	    // Dibujo del disparo 
+        noStroke();
+        fill(255, 200, 0);
+        ellipse(xD, yD, tD, tD * 2);
+		}
+
+      function dibujarObjetivo() {
+	  
+	    // Dibujo del objetivo
+        noStroke();
+        fill(0, 200, 255);
+        rect(xO, yO, wO, hO, 10);
+      }
+
+      function actualizarCalendario() {
+	  
+	    // Fin del día: el Sol completa su ciclo
+         if (xS > 2 * width + rS) {
+		
+		// Reinicio posiciones 
+          xS = -rS;
+          xL = -width - rL;
+		  
+		// Incremento del día 
+          dia = dia + 1;
+		   
+        // Cambio de mes
+          if (dia > 30) {
+            dia = 1;
+            mes = mes + 1;
+         }
+		 
+        // Cambio de año 
+          if (mes > 12) {
+            mes = 1;
+            año = año + 1; }
+        }
+      }
+
+      function draw() {
+
+        // Cielo
+        background(xS <= width + rS ? color(0,0,255) : 10);
+
+        // Suelo
+        noStroke();
+        fill(20, 120, 40);
+        rect(0, height * 0.8, width, height * 0.2);
+
+        // Dibujo del sol y la luna
+        dibujarSol();
+        dibujarLuna();
+
+        // Movimiento sincronizado del sol y la luna
+        xS = xS + vS;
+        xL = xL + vL;
+        
+		// Fin del día: el Sol completa su ciclo 
+		
+        actualizarCalendario();
+		
+		// Objetivo
+
+          // Movimiento del objetivo
+            xO = xO + vO;
+
+        if (xO > width || xO < -wO) {
+          let dir = random([-1, 1]);
+          vO = dir * random(width / 300, width / 200);
+          xO = dir === 1 ? -wO : width;
+          yO = random(0.20 * height, 0.35 * height);
+        }
+		
+		// Dibujo del objetivo 
+        dibujarObjetivo();
+		
+		// Disparo
+
+        if (disparoActivo) {
+          yD = yD - vD;
+          if (yD < 0) disparoActivo = false;
+          dibujarDisparo();
+        }
+
+        // Impacto
+        if (disparoActivo &&
+            xD > xO && xD < xO + wO &&
+            yD > yO && yD < yO + hO) {
+
+          puntos = puntos + 1;
+          disparoActivo = false;
+
+          let dir = random([-1, 1]);
+          vO = dir * random(width / 300, width / 200);
+          xO = dir === 1 ? -wO : width;
+          yO = random(0.20 * height, 0.35 * height);
+        }
+
+        // Movimientos del personaje
+		
+       if (keyIsDown(LEFT_ARROW)){
+        xP = xP - vP;
+        }
+        else if (keyIsDown(RIGHT_ARROW)){
+        xP = xP + vP;
+        }
+        
+        // Límite para que no salga del lienzo 
+ 
+        if (xP < 0) {
+        xP = 0;
+        }
+        if (xP > width) {
+        xP = width;
+        }
+
+        // Salto del personaje 
+        vY = vY + g;
+        yP += vY;
+
+        if (yP > groundY) { 
+        yP = groundY; 
+        vY = 0; 
+        }
+
+        // Puntos clave
+         hipY = yP - legL;        // cadera por encima de los pies 
+         shoulderY = hipY - bodyL;    // hombros por encima de la cadera 
+         headY = shoulderY - rHead;    // centro de la cabeza
+
+        // Dibujo del personaje 
+
+        dibujarStickman();
+
+        // Dibujo del calendario
+
+        dibujarCalendario();
+
+        // Dibujar Puntos
+
+        dibujarPuntos();
+      }
+
+      function keyPressed() {
+	  
+        // Salto
+        if (keyCode === UP_ARROW && yP === groundY) {
+          vY = jumpV;
+        }
+		
+        // Disparo
+        if (key === ' ' && !disparoActivo) {
+          xD = xP;
+          yD = shoulderY;
+          disparoActivo = true;
+        }
+      }
+
+    </script>
+  </body>
+</html>
