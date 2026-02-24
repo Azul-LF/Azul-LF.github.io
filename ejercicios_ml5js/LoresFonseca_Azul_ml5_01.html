@@ -34,9 +34,25 @@
   </div>
 
   <div>
-   <h3> Explicación de cómo funciona el código</h3>
+   <h3> Explicación de cómo funciona el código </h3>
 
-   <p> Sustituye este párrafo por una explicación, en varios párrafos de lo que hace el script, bloque a bloque, que habéis utilizado para la tarea. Es un script muy avanzado para vosotros, pero sí estáis en condiciones de analizarlo parte a parte y ver que hace cada parte. Cuanto mejor esté explicado, mejor será la nota en la tarea. Una explicación de un párrafo tendrá poca nota </p>
+   <p> Al principio encontramos la estructura básica HTML (<!doctype html>, <html>, <head>).  
+
+Después aparece un bloque de estilos CSS. Aquí se define el aspecto de la página: la fuente del texto, los márgenes, el tamaño máximo del contenedor del vídeo y la superposición del canvas. El #wrap tiene posición relativa para que el <canvas> pueda colocarse encima del <video> con posición absoluta, lo que permite dibujar las cajas de detección sobre la imagen de la cámara en tiempo real. También se estilizan el botón y las etiquetas. 
+
+En el cuerpo (<body>) se construye la interfaz visible. Hay un título, un botón para iniciar la cámara y dos indicadores de estado: uno muestra el estado general del sistema y otro indica la mejor detección encontrada. Después hay un contenedor con el elemento <video>, que muestra la imagen capturada por la cámara, y el <canvas> , que dibuja las cajas y etiquetas encima del vídeo. Al final, aparece la explpicación del código. 
+
+En la parte de JavaScript empieza lo que es el programa. Primero se obtienen referencias a los elementos del DOM mediante document.getElementById, que permite manipular el botón, los textos de estado, el vídeo y el canvas desde el código. También se obtiene el contexto 2D del canvas (getContext("2d")), que es necesario para dibujar rectángulos y texto. Se declaran dos variables importantes: detector, que almacenará el modelo de detección de objetos, y running, que controla si la detección está activa. 
+
+La función initCamera() se encarga de activar la cámara del dispositivo mediante navigator.mediaDevices.getUserMedia. Se solicita solo vídeo y se intenta usar la cámara trasera (facingMode: "environment"), algo útil en móviles. Cuando el vídeo está listo, se ajusta el tamaño del canvas al tamaño del vídeo para que las cajas de detección coincidan con la imagen. 
+
+La función draw(detections) recibe una lista de objetos detectados por el modelo. Primero (clearRect) borrar las detecciones anteriores. Luego recorre cada detección y dibuja un rectángulo (strokeRect) alrededor del objeto. También escribe una etiqueta con el nombre del objeto (label) y su porcentaje (confidence). 
+
+La función loopDetect() es lo más importante del sistema. Comprueba que la detección esté activa y que el modelo esté cargado. Luego llama a detector.detect(video, callback), que analiza la imagen actual del vídeo. Si hay un error, se muestra y se detiene la detección. Si todo va bien, se dibujan las detecciones en el canvas, se actualiza la mejor detección y se vuelve a llamar a la función usando requestAnimationFrame(loopDetect). 
+
+Para terminar, se añade un evento al botón btnStart. Cuando la persona hace clic, el botón se desactiva para evitar varios inicios.  
+
+En resumen, este script permite acceder a la cámara del dispositivo, cargar un modelo de inteligencia artificial y detectar objetos en tiempo real, mostrando visualmente las detecciones sobre la imagen.  </p>
 
   </div>
 
@@ -136,4 +152,5 @@
     });
   </script>
 </body>
+
 </html>
