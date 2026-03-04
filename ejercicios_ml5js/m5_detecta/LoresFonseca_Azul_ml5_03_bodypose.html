@@ -31,10 +31,19 @@
 
     <span id="status" class="badge">Estado: esperando…</span>
   </div>
-
-  <h2> Reporte de fallas </h2>
-  <div> </div>
-
+<div>
+ <h2> REPORTE DE FALLAS </h2>
+  <div> </div> 
+ <p1> Falla 1: En alguna foto se mezclan keypoints de 1 a la otra. Esto ocurre cuando hay más de una persona en la foto y estan bastante juntas. Es posible que esto ocurra porque al estar muy juntas no puede distinguir que parte  del cuerpo es de cada persona, por lo que intenta hacerlo lo mejor posible pero se confunde. Se puede comprobar en una de las imágenes. </p1>
+  <div></div>
+ <p2> Falla 2: Puede haber fallas en la detección debido a la mala iluminación de la a¡escena. Esto puede ocurrir cunado la persona a detectar se encuentra a contraluz o en una zona poco iluminada o en penumbra. Puede que no detecte bien a la persona en este caso a consecuencia de la falta de claridad de la persona en la imagen, ya que la falta de luz hace que la persona se vea más desdibujada. Puede comprobarse si intentamos que detecte a la persona en una zona oscura </p2>
+  <div></div>
+ <p3> Falla 3: Es posible que al principio le cueste un poco detectar los keypoints. Sucede cuando acabas de poner en marcha la página. Puede ser porque el FPS es bajo, ya que la imagen se ve fluida. Se puede comprobar al comenzar a detectar una persona y ver que le cuesta un poco al principio. </p3>
+   <div></div>
+ <p4> Falla 4: Hay momentos en los que le cuesta completar el esqueleto a causa de que no se ve todo el cuerpo completo de la persona e la imagen. Es posible que esto ocurra porque al faltarle partes para detectar el cuerpo completo le cueta más detectar lo que ve. Se puede comprobar cuando solo se ve la mitad de una persona en escena. </p4>
+   <div></div>
+ <p5> Falla 5: Hay otro momento en el que le cuesta detectar bien los keypoints de una persona a pesar de que se le ve completo en la imagen. Este caso es el momento en el que la persona lleva puesta ropa ancha. Puede costarle más debido a que la ropa se funde con el cuerpo, y eto ahce que no se distingan de manera clara y evidente las extremidades del sujeto. Para comprobarlo te puedes poner una chaqueta holagada encima y verás que le cuesta més detectarte. </p5>
+</div>
   <script>
     let video;
     let bodyPose;
