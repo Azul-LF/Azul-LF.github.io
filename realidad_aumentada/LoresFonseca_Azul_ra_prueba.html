@@ -24,28 +24,46 @@
     <!-- Contenedor del objeto -->
     <a-entity id="modelo" position="0 0 -4">
 
-      <!-- Cuerpo principal -->
+      <!-- Base -->
       <a-cylinder
-        position="0 0.6 0"
-        radius="0.15"
-        height="0.8"
+        position="0 0.3 0"
+        radius="0.5"
+        height="0.6"
+        color="#888">
+      </a-cylinder>
+
+      <!-- Nivel 1 -->
+      <a-cylinder
+        position="0 0.9 0"
+        radius="0.35"
+        height="0.6"
+        color="#aaa">
+      </a-cylinder>
+
+      <!-- Nivel 2 -->
+      <a-cylinder
+        position="0 1.5 0"
+        radius="0.25"
+        height="0.6"
         color="#ccc">
       </a-cylinder>
 
-      <!-- Punta -->
+      <!-- Parte superior -->
       <a-cone
-        position="0 1.1 0"
-        radius-bottom="0.15"
-        height="0.3"
+        position="0 2 0"
+        radius-bottom="0.25"
+        height="0.5"
         color="red">
       </a-cone>
 
-      <!-- Detalle frontal -->
-      <a-sphere
-        position="0 0.7 0.15"
-        radius="0.05"
-        color="blue">
-      </a-sphere>
+      <!-- PUERTA -->
+      <a-box
+        position="0 0.35 0.51"
+        width="0.25"
+        height="0.4"
+        depth="0.05"
+        color="#5c4033">
+      </a-box>
 
     </a-entity>
 
